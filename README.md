@@ -547,7 +547,24 @@ Dari kode diatas jika dicoba maka akan seperti berikut:
 - Jika password tidak memiliki panjang 6 karakter:\
 ![Notifikasi error](image-9.png)
 #### 4.2.2 Tampilkan dan Sembunyikan Password
+Latihan selanjutnya yang saya lakukan adalah menampilkan dan menyembunyikan password, konsep ini memang sering digunakan pada form input untuk login atau register. Berikut adalah kodenya:
 
+      suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+
+Dari kode tersebut jika dijalankan dan dicek diemulator maka akan seperti berikut:
+- Menyembunyikan password\
+![hasil emulator](image-10.png)
+- Menampilkan password\
+![hasil emulator](image-11.png)
 #### 4.2.3 Animasi Sederhana
 
 #### 4.2.4 Simpan Sesi Login
