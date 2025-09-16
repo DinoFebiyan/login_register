@@ -566,7 +566,14 @@ Dari kode tersebut jika dijalankan dan dicek diemulator maka akan seperti beriku
 - Menampilkan password\
 ![hasil emulator](image-11.png)
 #### 4.2.3 Animasi Sederhana
+Latihan yang selanjutnya saya lakukan adalah menggunakan hero widget, dengan menggunakan ini, akan membuat animasi pada icon menjadi lebih halus. Berikut adalah kode yang saya gunakan:
 
+    Hero(
+    tag: 'logo',
+    child: Icon(Icons.lock_person, size: 80, color: Colors.white),
+    ),
+kode tersebut saya terapkan di login dan register sehingga akan menghasilkan animasi seperti berikut:\
+![Animasi](animasi.gif)
 #### 4.2.4 Simpan Sesi Login
 
 ### 4.2 Kesimpulan

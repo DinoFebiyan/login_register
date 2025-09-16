@@ -110,7 +110,10 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Icon(Icons.person_add_alt_1, size: 80, color: Colors.white),
+                Hero(
+                  tag: 'logo',
+                  child: Icon(Icons.person_add_alt_1, size: 80, color: Colors.white),
+                ),
                 SizedBox(height: 20),
                 Text(
                   'Create Account',

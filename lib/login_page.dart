@@ -65,7 +65,10 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Icon(Icons.lock_person, size: 80, color: Colors.white),
+                Hero(
+                  tag: 'logo',
+                  child: Icon(Icons.lock_person, size: 80, color: Colors.white),
+                ),
                 SizedBox(height: 20),
                 Text(
                   'Welcome Back!',
