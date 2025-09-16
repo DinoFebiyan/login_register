@@ -17,6 +17,40 @@ class _RegisterPageState extends State<RegisterPage> {
     String fullName = _fullNameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    
+    if (!email.contains('@')) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Email Tidak Valid'),
+          content: Text('Email harus mengandung "@"'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    if (password.length < 6) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Password Tidak Valid'),
+          content: Text('Password minimal 6 karakter'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
 
     if (fullName.isNotEmpty && email.isNotEmpty && password.isNotEmpty) {
       userData[email] = {

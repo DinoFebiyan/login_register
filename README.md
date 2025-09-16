@@ -505,9 +505,47 @@ Dari Kode yang sudah dibuat diatas, berikut adalah hasil programnya ketika saja 
 - Status Ketika Berhasil\
 ![Status berhasil](image-6.png)
 ### 4.2 Latihan Tambahan
-
+Untuk meningkatkan pengalaman dan agar semakin memperdalam keahlian saya, disini saya akan mengerjakan beberapa latihan tambahan seperti berikut:
 #### 4.2.1 Validasi Input
+Latihan pertama yang saya lakukan yaitu menambahkan validasi input, disini saya menambahkan validasi di input form register yaitu validasi bahwa email harus ada `@` dan password harus memiliki minimal panjang 6 karakter. Jika tidak, maka program akan memberikan notifikasi. Berikut adalah kodenya:
+    if (!email.contains('@')) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+            title: Text('Email Tidak Valid'),
+            content: Text('Email harus mengandung "@"'),
+            actions: [
+                TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+                ),
+            ],
+            ),
+        );
+        return;
+        }
 
+        if (password.length < 6) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+            title: Text('Password Tidak Valid'),
+            content: Text('Password minimal 6 karakter'),
+            actions: [
+                TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+                ),
+            ],
+            ),
+        );
+        return;
+        }
+Dari kode diatas jika dicoba maka akan seperti berikut:
+- Jika email tidak mengandung `@`:\
+![Notifikasi error](image-8.png)
+- Jika password tidak memiliki panjang 6 karakter:\
+![Notifikasi error](image-9.png)
 #### 4.2.2 Tampilkan dan Sembunyikan Password
 
 #### 4.2.3 Animasi Sederhana
