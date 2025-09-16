@@ -33,7 +33,7 @@ Sebelum mengerjakan praktikum, ada beberapa alat yang saya siapkan untuk membant
 ## 2. Desain dan Konsep Layout
 
 Sebelum membuat kode, tentunya hal yang pertama dilakukan adalah membuat desain terslebih dahulu agar kita memiliki rencana dan rancangan saat proses koding nantinya. Berikut adalah rancangan desain dan layout yang akan saya implementasikan:\
-![Wireframe](image.png)
+![Wireframe](image/image.png)
 
 ## 3. Implementasi Kode Flutter
 
@@ -42,7 +42,7 @@ Dari desain yang telah ada sebelumnya, berikut merupakan implementasi kodenya:
 ### 3.1 Struktur Proyek
 
 Untuk membuat kode yang sesuai dan bisa diolah, yang pertama dilakukan adalah dengan membuat struktur proyek terlebih dahulu. Disini saya akan membuat beberapa susunan file seperti main, login, register, home page serta file yang digunakan untuk menyimpan data user. Berikut adalah susunan yang telah saya buat:\
-![struktur proyek](image1.png)
+![struktur proyek](image/image1.png)
 
 ### 3.2 Kode main.dart
 
@@ -491,19 +491,19 @@ Dari praktikum yang telah dilakukan diatas, bisa didapatkan poin poin seperti be
 Dari Kode yang sudah dibuat diatas, berikut adalah hasil programnya ketika saja jalankan di emulator:
 
 - Halaman Login\
-![Halaman Login Emulator](image-1.png)
+![Halaman Login Emulator](image/image-1.png)
 - Percobaan Mengisi Form Login\
-![Mencoba mengisi form](image-2.png)
+![Mencoba mengisi form](image/image-2.png)
 - Halaman HomePage\
-![Halaman Homepage emulator](image-3.png)
+![Halaman Homepage emulator](image/image-3.png)
 - Halaman Register\
-![Halaman register emulator](image-4.png)
+![Halaman register emulator](image/image-4.png)
 - Percobaan Mengisi Form Register\
-![Percobaan mengisi form](image-5.png)
+![Percobaan mengisi form](image/image-5.png)
 - Status Ketika Gagal\
-![Status gagal](image-7.png)
+![Status gagal](image/image-7.png)
 - Status Ketika Berhasil\
-![Status berhasil](image-6.png)
+![Status berhasil](image/image-6.png)
 ### 4.2 Latihan Tambahan
 Untuk meningkatkan pengalaman dan agar semakin memperdalam keahlian saya, disini saya akan mengerjakan beberapa latihan tambahan seperti berikut:
 #### 4.2.1 Validasi Input
@@ -543,9 +543,9 @@ Latihan pertama yang saya lakukan yaitu menambahkan validasi input, disini saya 
         }
 Dari kode diatas jika dicoba maka akan seperti berikut:
 - Jika email tidak mengandung `@`:\
-![Notifikasi error](image-8.png)
+![Notifikasi error](image/image-8.png)
 - Jika password tidak memiliki panjang 6 karakter:\
-![Notifikasi error](image-9.png)
+![Notifikasi error](image/image-9.png)
 #### 4.2.2 Tampilkan dan Sembunyikan Password
 Latihan selanjutnya yang saya lakukan adalah menampilkan dan menyembunyikan password, konsep ini memang sering digunakan pada form input untuk login atau register. Berikut adalah kodenya:
 
@@ -562,9 +562,9 @@ Latihan selanjutnya yang saya lakukan adalah menampilkan dan menyembunyikan pass
 
 Dari kode tersebut jika dijalankan dan dicek diemulator maka akan seperti berikut:
 - Menyembunyikan password\
-![hasil emulator](image-10.png)
+![hasil emulator](image/image-10.png)
 - Menampilkan password\
-![hasil emulator](image-11.png)
+![hasil emulator](image/image-11.png)
 #### 4.2.3 Animasi Sederhana
 Latihan yang selanjutnya saya lakukan adalah menggunakan hero widget, dengan menggunakan ini, akan membuat animasi pada icon menjadi lebih halus. Berikut adalah kode yang saya gunakan:
 
@@ -573,9 +573,41 @@ Latihan yang selanjutnya saya lakukan adalah menggunakan hero widget, dengan men
     child: Icon(Icons.lock_person, size: 80, color: Colors.white),
     ),
 kode tersebut saya terapkan di login dan register sehingga akan menghasilkan animasi seperti berikut:\
-![Animasi](animasi.gif)
+![Animasi](videos/animasi.gif)
 #### 4.2.4 Simpan Sesi Login
+Latihan terakhir yang saya lakukan adalah mencoba untuk membuat kode untuk menyimpan sesi login. Disini saya menggunakan package `shared_preferences` untuk menyimpan status login. sehingga saat user masuk ke aplikasi namun sudah login jadi user tersebut tidak perlu login lagi.
+Langkah pertama yang saya lakukan adalah dengan menambahkan dependencie seperti berikut:
+![menambahkan dependensy shared_prefrences](image/image-12.png)
+setelah menambahkan dependency seperti diatas, selanjutnya saya akan mencoba untuk melajukan pub get untuk memperbarui package flutter seperti berikut:\
+![flutter pub get](image/image-13.png)
+setelah melakukan pubget seperti diatas, selanjutnya saya akan membuat kode untuk menyimpan status login pada file `login page.dart` seperti berikut:
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+        await prefs.setString('fullName', userData[email]!['fullName']!);
+kode diatas digunakan untuk menyimpan status login, dimana dengan ini maka meskipun aplikasinya ditutup user tetap bisa masuk aplikasi tanpa perlu login ulang.\
+Setelah membuat kode tersebut selanjutnya saya membuat kode untuk mengecek status login pada `main.dart` seperti berikut:
+
+    Future<Widget> _getInitialPage() async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+        String fullName = prefs.getString('fullName') ?? '';
+        if (isLoggedIn) {
+        return HomePage(fullName: fullName);
+        } else {
+        return LoginPage();
+        }
+    }
+Setelah itu, disini saya juga akan menambahkan tombol untuk logout di `homepage`, sehingga penngguna bisa logout. Sehingga ketika membuka aplikasi lagi maka pengguna akan login terlebih dahulu, berikut kodenya:
+
+    icon: Icon(Icons.logout),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+    }
+dengan ini maka pengguna akan bisa logout untuk mengakhiri sesi.\
+Dari kode kode diatas, berikut saya tampilkan hasilnya:\
+![simpan sesi](videos/simpansesi.gif)
 ### 4.2 Kesimpulan
 Dari praktikum ini, saya berhasil membuat sebuah aplikasi Flutter sederhana yang memiliki fitur login dan registrasi. Dalam proses pengerjaan, saya mempelajari bagaimana membangun UI menggunakan widget-widget dasar Flutter seperti Scaffold, Container, TextField, dan ElevatedButton. Saya juga memahami cara mengelola input pengguna dengan TextEditingController, serta bagaimana mengatur navigasi antar halaman menggunakan Navigator.
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_register/register_page.dart';
 import 'package:login_register/home_page.dart';
 import 'package:login_register/data/user_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,11 +16,15 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
-  void _login() {
+  void _login() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
     if (userData.containsKey(email) && userData[email]!['password'] == password) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('fullName', userData[email]!['fullName']!);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
